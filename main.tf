@@ -4,8 +4,7 @@ module "aws_vpc" {
   earpz-vpc-name = var.dev-earpz-vpc-name
 
   tags = {
-    Name        = var.dev-earpz-vpc-name
-    Owner       = "Earp"
+    Name = var.dev-earpz-vpc-name
   }
 }
 variable "dev-earpz-cidr" {
