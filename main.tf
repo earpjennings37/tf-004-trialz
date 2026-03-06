@@ -5,6 +5,8 @@ module "aws_vpc" {
 
   tags = {
     Name = var.dev-earpz-vpc-name
+        Environment = "dev"
+    Owner       = "Earp"
   }
 }
 variable "dev-earpz-cidr" {
@@ -23,7 +25,6 @@ module "aws_subnets" {
 
   tags = {
     Name  = var.dev-earpz-vpc-name
-    Owner = "Earp"
   }
 }
 variable "subnet_name" {
