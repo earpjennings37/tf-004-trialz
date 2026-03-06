@@ -5,7 +5,6 @@ module "aws_vpc" {
 
   tags = {
     Name        = var.dev-earpz-vpc-name
-    Environment = "dev"
     Owner       = "Earp"
   }
 }
