@@ -4,9 +4,8 @@ module "aws_vpc" {
   earpz-vpc-name = var.dev-earpz-vpc-name
 
   tags = {
-    Name        = var.dev-earpz-vpc-name
-    Environment = "dev"
-    Owner       = "earpz"
+    Name        = "${var.dev-earpz-vpc-name}-${module.aws_vpc.earpz-env}"
+    Environment = var.enviroment
   }
 }
 variable "dev-earpz-cidr" {
@@ -17,11 +16,12 @@ variable "dev-earpz-vpc-name" {
   type    = string
   default = "earpz-vpc-name"
 }
-output "earpz-vpc" {
-  value = module.aws_vpc.earpz_vpc_id
+variable "enviroment" {
+  type    = string
+  default = "dev"
 }
-output "earpz_vpc_cidr" {
-  value = module.aws_vpc.vpc_cidr
+output "module-vpc-env-name" {
+  value = module.aws_vpc.earpz-env
 }
 ###############################################
 module "aws_subnets" {
@@ -31,21 +31,19 @@ module "aws_subnets" {
   earpz_vpc_id       = module.aws_vpc.earpz_vpc_id
 
   tags = {
-    Name        = var.dev-earpz-vpc-name
-    Environment = "dev"
-    Owner       = "earpz"
+    Name = "${var.subnet_name}-${module.aws_vpc.earpz-env}"
   }
 }
 variable "subnet_name" {
   type    = string
-  default = "earpz-vpc-name"
+  default = "earpz-subnet"
 }
 variable "availability_zone" {
   type    = string
   default = "us-east-1a"
 }
-output "module_igw_alias" {
-  value = module.aws_subnets.subnet-igw-name
+output "module-igw-alias" {
+  value = "${module.aws_subnets.subnet-igw-name}-${module.aws_vpc.earpz-env}"
 }
 output "module-subnet-igw" {
   value = module.aws_subnets.igw_id
@@ -58,6 +56,9 @@ module "aws_security_groups" {
   source          = "./modules/security_groups"
   earpz-vpc-id    = module.aws_vpc.earpz_vpc_id
   earpz_create_sg = var.module_create_sg
+  tags = {
+    Name = "earp-sg-${module.aws_vpc.earpz-env}"
+  }
 }
 variable "module_create_sg" {
   type    = bool
@@ -65,4 +66,7 @@ variable "module_create_sg" {
 }
 output "module_create_sg" {
   value = module.aws_security_groups.earpz_create_sg
+}
+output "module-earpz-sg-env" {
+  value = module.aws_vpc.earpz-env
 }

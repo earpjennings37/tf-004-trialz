@@ -15,9 +15,16 @@ variable "tags" {
   type    = map(string)
   default = {}
 }
+variable "earpz-env" {
+  type = string
+  default = "dev"
+}
 output "earpz_vpc_id" {
   value = aws_vpc.earpz-vpc.id
 }
 output "vpc_cidr" {
   value = var.earpz-cidr
+}
+output "earpz-env" {
+  value = var.earpz-env
 }
