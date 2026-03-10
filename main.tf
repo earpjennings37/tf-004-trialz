@@ -23,6 +23,10 @@ variable "environment" {
 output "module-vpc-env-name" {
   value = module.aws_vpc.earpz-env
 }
+output "module-vpc-secret" {
+  value = var.dev-earpz-vpc-name
+  sensitive = true
+}
 ###############################################
 module "aws_subnets" {
   source             = "./modules/subnets"
