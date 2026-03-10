@@ -1,7 +1,7 @@
 resource "aws_security_group" "earpz-sg" {
   vpc_id    = var.earpz-vpc-id
   count = var.earpz_create_sg ? 1 : 0
-  name      = "earpz-sg"
+  name      = var.earpz-sg-name
   tags = {
     Name = join("-", ["earpz", "sg"])
   }
@@ -9,6 +9,10 @@ resource "aws_security_group" "earpz-sg" {
 variable "earpz-vpc-id" {
   type    = string
   default = "earpz-vpc-id"
+}
+variable "earpz-sg-name" {
+  type = string
+  default = "earp-sg"
 }
 variable "earpz_create_sg" {
   type    = bool
@@ -22,9 +26,6 @@ variable "tags" {
 output "earpz_create_sg" {
   value = var.earpz_create_sg
 }
-/*
-### create tagzzz ###
-variable "logging" {
-    type = bool
-    default = true
-*/
+output "earpz-sg-name" {
+  value = var.earpz-sg-name
+}

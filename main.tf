@@ -58,6 +58,7 @@ module "aws_security_groups" {
   earpz_create_sg = var.module_create_sg
   tags = {
     Name = "earp-sg-${module.aws_vpc.earpz-env}"
+        Environment = var.enviroment
   }
 }
 variable "module_create_sg" {
@@ -69,4 +70,7 @@ output "module_create_sg" {
 }
 output "module-earpz-sg-env" {
   value = module.aws_vpc.earpz-env
+}
+output "module-earpz-sg-name" {
+  value = module.aws_security_groups.earpz-sg-name
 }
