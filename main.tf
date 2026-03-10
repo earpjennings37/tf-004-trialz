@@ -48,7 +48,7 @@ output "module_igw_alias" {
   value = module.aws_subnets.subnet-igw-name
 }
 output "module-subnet-igw" {
-  value = module.aws_subnets.subnet_vpc_id
+  value = module.aws_subnets.igw_id
 }
 output "module-subnet_vpc_id" {
   value = module.aws_subnets.subnet_vpc_id
